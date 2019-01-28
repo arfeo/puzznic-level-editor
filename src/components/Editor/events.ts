@@ -137,7 +137,9 @@ function gridCellClickHandler(event: MouseEvent) {
   const cellY: number = parseInt(currentCanvas.getAttribute('y'));
 
   switch (this.currentObject) {
-    case 0: return clearCell.call(this, ctx);
+    case 0: {
+      return clearCell.call(this, ctx);
+    }
     case 1: {
       this.currentMap[cellY][cellX] = this.currentObject;
 

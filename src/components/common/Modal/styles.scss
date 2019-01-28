@@ -22,7 +22,7 @@
     .modal-window {
       position: relative;
       height: auto;
-      padding: 2vmin;
+      padding: $middlePadding;
       background-color: lightgrey;
       z-index: 102;
       font-size: $baseFontSize;
@@ -51,16 +51,16 @@
       }
 
       .modal {
-        padding-right: 2vmin;
+        padding-right: $middlePadding;
 
         .modal-submit {
           display: flex;
           justify-content: center;
-          margin-top: 2vmin;
+          margin-top: $middleMargin;
 
           .-button {
-            font-size: $baseFontSize;
-            margin: 0 1vmin;
+            font-size: $mediumFontSize;
+            margin: 0 $smallMargin 0 0;
           }
         }
       }
