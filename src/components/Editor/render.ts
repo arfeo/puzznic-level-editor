@@ -419,9 +419,14 @@ function renderEraser(ctx: CanvasRenderingContext2D) {
  * @param cellCtx
  * @param targetCtx
  */
-function clearCell(cellCtx: CanvasRenderingContext2D, targetCtx: CanvasRenderingContext2D) {
-  cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
-  targetCtx.clearRect(0, 0, this.cellSize, this.cellSize);
+function clearCell(cellCtx?: CanvasRenderingContext2D, targetCtx?: CanvasRenderingContext2D) {
+  if (cellCtx) {
+    cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
+  }
+
+  if (targetCtx) {
+    targetCtx.clearRect(0, 0, this.cellSize, this.cellSize);
+  }
 }
 
 export {

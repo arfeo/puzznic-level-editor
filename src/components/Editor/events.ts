@@ -200,7 +200,7 @@ function gridCellClickHandler(event: MouseEvent) {
           `.editorBoard .-grid .-cell .-target-canvas[x="${this.level.target[1]}"][y="${this.level.target[0]}"]`
         ) as HTMLCanvasElement;
 
-        previousTargetCanvas.getContext('2d').clearRect(0, 0, this.cellSize, this.cellSize);
+        clearCell.call(this, null, previousTargetCanvas.getContext('2d'));
       }
 
       this.level.target = [cellY, cellX];
