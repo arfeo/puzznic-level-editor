@@ -113,12 +113,10 @@ function panelActionClickHandler(event: MouseEvent) {
 
         this.resetMap();
       }
-
       break;
     }
     case 'generate': {
       new GeneratedMap(this);
-
       break;
     }
     default: break;
@@ -138,14 +136,16 @@ function gridCellClickHandler(event: MouseEvent) {
   const cellX: number = parseInt(currentCanvas.getAttribute('x'));
   const cellY: number = parseInt(currentCanvas.getAttribute('y'));
 
-  this.currentMap[cellY][cellX] = this.currentObject;
-
   switch (this.currentObject) {
     case 0: return clearCell.call(this, ctx);
     case 1: {
+      this.currentMap[cellY][cellX] = this.currentObject;
+
       return renderEmptySpace.call(this, ctx);
     }
     case 2: {
+      this.currentMap[cellY][cellX] = this.currentObject;
+
       return renderWall.call(this, ctx);
     }
     case 11:
@@ -162,9 +162,7 @@ function gridCellClickHandler(event: MouseEvent) {
       return renderTarget.call(this, ctx);
     }
     default: {
-      alert('Choose the object to insert');
-
-      return;
+      return alert('There is nothing to insert: select an object from the panel');
     }
   }
 }
