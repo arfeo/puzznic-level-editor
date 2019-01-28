@@ -84,7 +84,7 @@ function panelObjectClickHandler(event: MouseEvent) {
 
   currentObject.classList.add('active');
 
-  this.currentObject = parseInt(currentObject.getAttribute('key'));
+  this.selectedObject = parseInt(currentObject.getAttribute('key'));
 }
 
 /**
@@ -136,17 +136,17 @@ function gridCellClickHandler(event: MouseEvent) {
   const cellX: number = parseInt(currentCanvas.getAttribute('x'));
   const cellY: number = parseInt(currentCanvas.getAttribute('y'));
 
-  switch (this.currentObject) {
+  switch (this.selectedObject) {
     case 0: {
       return clearCell.call(this, ctx);
     }
     case 1: {
-      this.currentMap[cellY][cellX] = this.currentObject;
+      this.currentMap[cellY][cellX] = this.selectedObject;
 
       return renderEmptySpace.call(this, ctx);
     }
     case 2: {
-      this.currentMap[cellY][cellX] = this.currentObject;
+      this.currentMap[cellY][cellX] = this.selectedObject;
 
       return renderWall.call(this, ctx);
     }
@@ -158,7 +158,7 @@ function gridCellClickHandler(event: MouseEvent) {
     case 16:
     case 17:
     case 18: {
-      return renderBlock.call(this, ctx, this.currentObject - 10);
+      return renderBlock.call(this, ctx, this.selectedObject - 10);
     }
     case 20: {
       return renderTarget.call(this, ctx);

@@ -2,21 +2,25 @@ import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
 import { setUpEventHandlers, removeEventHandlers } from './events';
 
+import { IBlock } from '../../types/editor';
+
 class Editor {
   editorBoardGrid: HTMLElement;
   editorPanel: HTMLElement;
   panelObjects: { [key: string]: HTMLElement };
   panelActions: { [key: string]: HTMLElement };
   cellSize: number;
-  currentObject: number;
+  selectedObject: number;
   currentMap: number[][];
-  currentTargetPosition: number[];
+  currentBlocks: IBlock[];
+  currentTarget: number[];
 
   constructor() {
-    this.currentObject = -1;
+    this.selectedObject = -1;
     this.cellSize = setCellSize();
     this.currentMap = [];
-    this.currentTargetPosition = [];
+    this.currentBlocks = [];
+    this.currentTarget = [];
 
     this.resetMap();
     this.render();
