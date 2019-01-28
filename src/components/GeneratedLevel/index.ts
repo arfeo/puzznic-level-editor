@@ -1,7 +1,7 @@
 import { Modal } from '../common/Modal';
 import { Editor } from '../Editor';
 
-class GeneratedMap extends Modal {
+class GeneratedLevel extends Modal {
   mapTextArea: HTMLTextAreaElement;
 
   constructor(editor: Editor) {
@@ -15,7 +15,7 @@ class GeneratedMap extends Modal {
     const modalSubmit: HTMLElement = document.createElement('div');
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');
 
-    generatedMapContainer.innerHTML = '<strong>Generated map</strong>';
+    generatedMapContainer.innerHTML = '<strong>Generated level</strong>';
     this.mapTextArea.innerHTML = JSON.stringify(this.editor.level.map);
     this.mapTextArea.style.width = '100%';
     this.mapTextArea.style.height = '40vmin';
@@ -36,4 +36,4 @@ class GeneratedMap extends Modal {
   }
 }
 
-export { GeneratedMap };
+export { GeneratedLevel };

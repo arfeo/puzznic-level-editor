@@ -1,3 +1,23 @@
+export enum LevelObjects {
+  Nothing = 0,
+  Empty = 1,
+  Wall = 2,
+  Block1 = 11,
+  Block2 = 12,
+  Block3 = 13,
+  Block4 = 14,
+  Block5 = 15,
+  Block6 = 16,
+  Block7 = 17,
+  Block8 = 18,
+  Target = 20,
+}
+
+export enum Actions {
+  Reset = 'reset',
+  Generate = 'generate',
+}
+
 export const ELEMENTS_COLORS: { [key: string]: { [key: string]: string } } = {
   empty: {
     background: 'rgb(255, 255, 255)',

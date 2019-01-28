@@ -4,7 +4,6 @@ import { setUpEventHandlers, removeEventHandlers } from '../../Editor/events';
 
 abstract class Modal {
   editor: Editor;
-  appRoot: HTMLElement;
   modalContainer: HTMLElement;
   mask: HTMLElement;
   modalWindow: HTMLElement;

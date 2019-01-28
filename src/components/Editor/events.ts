@@ -1,6 +1,7 @@
-import { GeneratedMap } from '../GeneratedMap';
+import { GeneratedLevel } from '../GeneratedLevel';
 
 import { APP } from '../../constants/global';
+import { Actions, LevelObjects } from '../../constants/app';
 
 import {
   renderEmptySpace,
@@ -9,6 +10,10 @@ import {
   renderTarget,
   clearCell,
 } from './render';
+
+import { excludeBlock } from './utils';
+
+import { IBlock } from '../../types/editor';
 
 /**
  * Function creates all the Editor's event listeners
@@ -99,7 +104,7 @@ function panelActionClickHandler(event: MouseEvent) {
   const actionType: string = action.getAttribute('action');
 
   switch (actionType) {
-    case 'reset': {
+    case Actions.Reset: {
       if (confirm('Are you sure you want to reset current map?')) {
         const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
           '.editorBoard .-grid .-cell .-canvas'
@@ -115,8 +120,8 @@ function panelActionClickHandler(event: MouseEvent) {
       }
       break;
     }
-    case 'generate': {
-      new GeneratedMap(this);
+    case Actions.Generate: {
+      new GeneratedLevel(this);
       break;
     }
     default: break;
@@ -137,30 +142,42 @@ function gridCellClickHandler(event: MouseEvent) {
   const cellY: number = parseInt(currentCanvas.getAttribute('y'));
 
   switch (this.selectedObject) {
-    case 0: {
+    case LevelObjects.Nothing: {
       return clearCell.call(this, ctx);
     }
-    case 1: {
+    case LevelObjects.Empty: {
       this.level.map[cellY][cellX] = this.selectedObject;
 
       return renderEmptySpace.call(this, ctx);
     }
-    case 2: {
+    case LevelObjects.Wall: {
       this.level.map[cellY][cellX] = this.selectedObject;
 
       return renderWall.call(this, ctx);
     }
-    case 11:
-    case 12:
-    case 13:
-    case 14:
-    case 15:
-    case 16:
-    case 17:
-    case 18: {
+    case LevelObjects.Block1:
+    case LevelObjects.Block2:
+    case LevelObjects.Block3:
+    case LevelObjects.Block4:
+    case LevelObjects.Block5:
+    case LevelObjects.Block6:
+    case LevelObjects.Block7:
+    case LevelObjects.Block8: {
+      const blockPosition: number[] = [cellY, cellX];
+      const blocksCloned: IBlock[] = excludeBlock.call(this, blockPosition);
+
+      blocksCloned.push({
+        id: blocksCloned.length + 1,
+        type: this.selectedObject - 10,
+        position: blockPosition,
+      });
+
+      this.level.map[cellY][cellX] = LevelObjects.Empty;
+      this.level.blocks = JSON.parse(JSON.stringify(blocksCloned));
+
       return renderBlock.call(this, ctx, this.selectedObject - 10);
     }
-    case 20: {
+    case LevelObjects.Target: {
       return renderTarget.call(this, ctx);
     }
     default: {
