@@ -1,3 +1,7 @@
+import { App } from './components/App';
+
+import { globals } from './constants/globals';
+
 window.onload = () => {
-  document.getElementById('root').innerHTML = 'Puzznic level editor';
+  globals.pageInstance = new App();
 };

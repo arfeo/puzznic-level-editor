@@ -1,0 +1,97 @@
+@import '../../assets/styles/variables';
+
+.editorBoard {
+  display: flex;
+  flex-direction: column;
+  height: calc(#{$cellSize * 12} + #{$panelHeight} + #{$mainMargin});
+
+  .-grid-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $mainMargin;
+    height: 100%;
+
+    .-grid {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      width: calc(#{$cellSize * 10});
+      height: calc(#{$cellSize * 12});
+      background-color: $black;
+      border-style: outset;
+      border-color: $white $grey $grey $white;
+
+      .-cell {
+        width: calc(#{$cellSize} - 2px);
+        height: calc(#{$cellSize} - 2px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+
+  .-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: $panelHeight;
+    width: calc(100% - #{$cellSize} * 2);
+    padding: 0 $cellSize;
+    background-color: $black;
+    color: $white;
+    font-size: $baseFontSize;
+
+    .-objects {
+      display: inherit;
+      align-items: inherit;
+
+      .-object {
+        display: inherit;
+        align-items: inherit;
+        justify-content: center;
+        width: calc(#{$cellSize} * 1.2);
+        height: calc(#{$cellSize} * 1.2);
+        margin-right: 1vmin;
+        border: 2px solid transparent;
+        border-radius: 7px;
+        box-shadow: 0 0 10px transparent;
+        cursor: pointer;
+
+        &.active {
+          border: 2px solid $objectBorder;
+          box-shadow: 0 0 10px $objectBorder;
+        }
+
+        & > canvas {
+          width: $cellSize;
+          height: $cellSize;
+        }
+
+        &.eraser {
+          margin-left: 3vmin;
+        }
+      }
+    }
+
+    .-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .-reset,
+      .-generate {
+        display: inherit;
+        align-items: inherit;
+        width: auto;
+        height: $cellSize;
+        margin-left: calc(#{$cellSize} / 4);
+        padding: 0 calc(#{$cellSize} / 4);
+        border-radius: 0.5vmin;
+        background-color: $white;
+        color: $black;
+        cursor: pointer;
+      }
+    }
+  }
+}
