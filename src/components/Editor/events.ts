@@ -2,7 +2,13 @@ import { GeneratedMap } from '../GeneratedMap';
 
 import { APP } from '../../constants/global';
 
-import { renderEmptySpace, renderWall, renderBlock, clearCell } from './render';
+import {
+  renderEmptySpace,
+  renderWall,
+  renderBlock,
+  renderTarget,
+  clearCell,
+} from './render';
 
 /**
  * Function creates all the Editor's event listeners
@@ -151,6 +157,9 @@ function gridCellClickHandler(event: MouseEvent) {
     case 17:
     case 18: {
       return renderBlock.call(this, ctx, this.currentObject - 10);
+    }
+    case 20: {
+      return renderTarget.call(this, ctx);
     }
     default: {
       alert('Choose the object to insert');

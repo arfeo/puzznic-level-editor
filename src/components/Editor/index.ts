@@ -10,11 +10,13 @@ class Editor {
   cellSize: number;
   currentObject: number;
   currentMap: number[][];
+  currentTargetPosition: number[];
 
   constructor() {
     this.currentObject = -1;
     this.cellSize = setCellSize();
     this.currentMap = [];
+    this.currentTargetPosition = [];
 
     this.resetMap();
     this.render();

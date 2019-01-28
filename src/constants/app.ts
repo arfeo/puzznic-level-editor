@@ -16,9 +16,7 @@ export const ELEMENTS_COLORS: { [key: string]: { [key: string]: string } } = {
     labelShadow: 'rgb(0, 0, 0)',
   },
   target: {
-    state1: 'rgb(190, 188, 191)',
-    state2: 'rgb(96, 95, 96)',
-    state3: 'rgb(255, 255, 255)',
+    border: 'rgb(190, 188, 191)',
   },
   eraser: {
     color: 'rgb(255, 0, 0)',

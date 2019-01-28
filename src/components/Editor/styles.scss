@@ -52,7 +52,6 @@
         justify-content: center;
         width: calc(#{$cellSize} * 1.2);
         height: calc(#{$cellSize} * 1.2);
-        margin-right: 1vmin;
         border: 2px solid transparent;
         border-radius: 7px;
         box-shadow: 0 0 10px transparent;
@@ -69,7 +68,7 @@
         }
 
         &.eraser {
-          margin-left: 3vmin;
+          margin-left: 1vmin;
         }
       }
     }

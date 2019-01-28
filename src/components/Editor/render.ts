@@ -65,6 +65,7 @@ function renderPanel() {
     block6: document.createElement('div'),
     block7: document.createElement('div'),
     block8: document.createElement('div'),
+    target: document.createElement('div'),
     eraser: document.createElement('div'),
   };
 
@@ -82,6 +83,7 @@ function renderPanel() {
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectEmptyCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectWallCanvas: HTMLCanvasElement = document.createElement('canvas');
+  const panelObjectTargetCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectEraserCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
 
@@ -89,6 +91,8 @@ function renderPanel() {
   panelObjectEmptyCanvas.height = this.cellSize;
   panelObjectWallCanvas.width = this.cellSize;
   panelObjectWallCanvas.height = this.cellSize;
+  panelObjectTargetCanvas.width = this.cellSize;
+  panelObjectTargetCanvas.height = this.cellSize;
   panelObjectEraserCanvas.width = this.cellSize;
   panelObjectEraserCanvas.height = this.cellSize;
 
@@ -100,6 +104,9 @@ function renderPanel() {
   this.panelObjects.wall.className = '-object';
   this.panelObjects.wall.setAttribute('key', '2');
   this.panelObjects.wall.title = 'Wall';
+  this.panelObjects.target.className = '-object';
+  this.panelObjects.target.setAttribute('key', '20');
+  this.panelObjects.target.title = 'Target';
   this.panelObjects.eraser.classList.add('-object');
   this.panelObjects.eraser.classList.add('eraser');
   this.panelObjects.eraser.title = 'Clear cell';
@@ -110,6 +117,7 @@ function renderPanel() {
   this.editorPanel.appendChild(panelObjects);
   this.panelObjects.empty.appendChild(panelObjectEmptyCanvas);
   this.panelObjects.wall.appendChild(panelObjectWallCanvas);
+  this.panelObjects.target.appendChild(panelObjectTargetCanvas);
   this.panelObjects.eraser.appendChild(panelObjectEraserCanvas);
   panelObjects.appendChild(this.panelObjects.empty);
   panelObjects.appendChild(this.panelObjects.wall);
@@ -131,6 +139,7 @@ function renderPanel() {
     renderBlock.call(this, panelObjectsBlockCanvas[blockName].getContext('2d'), i);
   }
 
+  panelObjects.appendChild(this.panelObjects.target);
   panelObjects.appendChild(this.panelObjects.eraser);
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(this.panelActions.reset);
@@ -142,6 +151,7 @@ function renderPanel() {
 
   renderEmptySpace.call(this, panelObjectEmptyCanvas.getContext('2d'));
   renderWall.call(this, panelObjectWallCanvas.getContext('2d'));
+  renderTarget.call(this, panelObjectTargetCanvas.getContext('2d'));
   renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 
@@ -321,6 +331,63 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number) {
 }
 
 /**
+ * Function renders the target -- a border with rectangle shape
+ *
+ * @param ctx
+ */
+function renderTarget(ctx: CanvasRenderingContext2D) {
+  ctx.clearRect(
+    this.cellSize * 2,
+    this.cellSize * 2,
+    this.cellSize * 5,
+    this.cellSize * 5,
+  );
+
+  drawRectangle(
+    ctx,
+    this.cellSize / 12,
+    this.cellSize / 12,
+    this.cellSize * 5 / 6,
+    this.cellSize * 5 / 6,
+    null,
+    this.cellSize / 6,
+    ELEMENTS_COLORS.target.border,
+  );
+  drawRectangle(
+    ctx,
+    0,
+    0,
+    this.cellSize / 12,
+    this.cellSize / 12,
+    ELEMENTS_COLORS.empty.background,
+  );
+  drawRectangle(
+    ctx,
+    this.cellSize * 11 / 12,
+    0,
+    this.cellSize / 12,
+    this.cellSize / 12,
+    ELEMENTS_COLORS.empty.background,
+  );
+  drawRectangle(
+    ctx,
+    this.cellSize * 11 / 12,
+    this.cellSize * 11 / 12,
+    this.cellSize / 12,
+    this.cellSize / 12,
+    ELEMENTS_COLORS.empty.background,
+  );
+  drawRectangle(
+    ctx,
+    0,
+    this.cellSize - this.cellSize / 12,
+    this.cellSize / 12,
+    this.cellSize / 12,
+    ELEMENTS_COLORS.empty.background,
+  );
+}
+
+/**
  * Function renders eraser tool icon
  *
  * @param ctx
@@ -358,5 +425,6 @@ export {
   renderEmptySpace,
   renderWall,
   renderBlock,
+  renderTarget,
   clearCell,
 };
