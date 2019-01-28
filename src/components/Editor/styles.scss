@@ -2,31 +2,42 @@
 
 .editorBoard {
   display: flex;
+  align-items: center;
   flex-direction: column;
   height: calc(#{$cellSize * 12} + #{$panelHeight} + #{$mainMargin});
 
   .-grid-container {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: $mainMargin;
-    height: 100%;
+    width: calc(#{$cellSize * 10});
+    height: calc(#{$cellSize * 12});
 
     .-grid {
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
       display: flex;
       flex-wrap: wrap;
-      width: calc(#{$cellSize * 10});
-      height: calc(#{$cellSize * 12});
+      width: 100%;
+      height: 100%;
       background-color: $black;
-      border-style: outset;
-      border-color: $white $grey $grey $white;
 
       .-cell {
         width: calc(#{$cellSize} - 2px);
         height: calc(#{$cellSize} - 2px);
         border: 1px solid rgba(255, 255, 255, 0.15);
       }
+    }
+
+    .-target-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
   }
 

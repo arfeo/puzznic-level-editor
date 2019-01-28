@@ -6,6 +6,7 @@ import { ILevel } from '../../types/editor';
 
 class Editor {
   editorBoardGrid: HTMLElement;
+  targetCanvas: HTMLCanvasElement;
   editorPanel: HTMLElement;
   panelObjects: { [key: string]: HTMLElement };
   panelActions: { [key: string]: HTMLElement };

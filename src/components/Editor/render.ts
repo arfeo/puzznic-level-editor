@@ -12,6 +12,7 @@ function renderEditorBoard() {
   const gridContainer: HTMLElement = document.createElement('div');
 
   this.editorBoardGrid = document.createElement('div');
+  this.targetCanvas = document.createElement('canvas');
   this.editorPanel = document.createElement('div');
 
   this.panelActions = {
@@ -24,11 +25,16 @@ function renderEditorBoard() {
   editorBoard.className = 'editorBoard';
   gridContainer.className = '-grid-container';
   this.editorBoardGrid.className = '-grid';
+  this.targetCanvas.className = '-target-canvas';
   this.editorPanel.className = '-panel';
+
+  this.targetCanvas.width = this.cellSize * 10;
+  this.targetCanvas.height = this.cellSize * 12;
 
   appRoot.appendChild(editorBoard);
   editorBoard.appendChild(gridContainer);
   gridContainer.appendChild(this.editorBoardGrid);
+  gridContainer.appendChild(this.targetCanvas);
   editorBoard.appendChild(this.editorPanel);
 
   for (let y = 0; y < 12; y += 1) {
