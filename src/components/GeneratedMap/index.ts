@@ -1,11 +1,11 @@
 import { Modal } from '../common/Modal';
-import { App } from '../App';
+import { Editor } from '../Editor';
 
 class GeneratedMap extends Modal {
   mapTextArea: HTMLTextAreaElement;
 
-  constructor(app: App) {
-    super(app);
+  constructor(editor: Editor) {
+    super(editor);
   }
 
   render() {
@@ -15,7 +15,7 @@ class GeneratedMap extends Modal {
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');
 
     generatedMapContainer.innerHTML = '<strong>Generated map</strong>';
-    this.mapTextArea.innerHTML = JSON.stringify(this.app.currentMap);
+    this.mapTextArea.innerHTML = JSON.stringify(this.editor.currentMap);
     this.mapTextArea.style.width = '100%';
     this.mapTextArea.style.height = '40vmin';
     copyToClipboardButton.innerHTML = 'Copy to clipboard';

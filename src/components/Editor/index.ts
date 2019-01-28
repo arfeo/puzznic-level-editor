@@ -1,16 +1,8 @@
-import { globals } from '../../constants/globals';
-
-import { setCellSize } from './utils';
+import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
-import {
-  setUpEventHandlers,
-  removeEventHandlers,
-  panelObjectClickHandler,
-  panelActionClickHandler,
-  gridCellClickHandler,
-} from './events';
+import { setUpEventHandlers, removeEventHandlers } from './events';
 
-class App {
+class Editor {
   editorBoardGrid: HTMLElement;
   editorPanel: HTMLElement;
   panelObjects: { [key: string]: HTMLElement };
@@ -36,11 +28,6 @@ class App {
     this.currentMap = [];
 
     this.resetMap();
-
-    globals.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
-    globals.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
-    globals.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
-
     this.render();
   }
 
@@ -66,4 +53,4 @@ class App {
   }
 }
 
-export { App };
+export { Editor };

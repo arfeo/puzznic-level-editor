@@ -1,11 +1,9 @@
-import { App } from '../../App';
+import { Editor } from '../../Editor';
 
-import { setUpEventHandlers, removeEventHandlers } from '../../App/events';
-
-type ModalSize = 'large' | 'medium' | 'small';
+import { setUpEventHandlers, removeEventHandlers } from '../../Editor/events';
 
 abstract class Modal {
-  app: App;
+  editor: Editor;
   appRoot: HTMLElement;
   modalContainer: HTMLElement;
   mask: HTMLElement;
@@ -14,8 +12,8 @@ abstract class Modal {
   modal: HTMLElement;
   abstract render(): void;
 
-  protected constructor(app: App, size?: ModalSize) {
-    this.app = app;
+  protected constructor(editor: Editor, size?: 'large' | 'medium' | 'small') {
+    this.editor = editor;
 
     this.modalContainer = document.createElement('div');
     this.modalContainer.className = 'modal-container';
@@ -41,7 +39,7 @@ abstract class Modal {
 
     this.render();
 
-    removeEventHandlers.call(this.app);
+    removeEventHandlers.call(this.editor);
 
     this.modalClose.addEventListener('click', this.close.bind(this));
   }
@@ -49,7 +47,7 @@ abstract class Modal {
   close() {
     this.modalContainer.remove();
 
-    setUpEventHandlers.call(this.app);
+    setUpEventHandlers.call(this.editor);
   }
 }
 

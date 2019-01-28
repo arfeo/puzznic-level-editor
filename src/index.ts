@@ -1,7 +1,7 @@
-import { App } from './components/App';
+import { Editor } from './components/Editor';
 
-import { globals } from './constants/globals';
+import { APP } from './constants/global';
 
 window.onload = () => {
-  globals.pageInstance = new App();
+  APP.pageInstance = new Editor();
 };

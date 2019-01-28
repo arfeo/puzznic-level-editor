@@ -1,4 +1,4 @@
-import { globals } from '../../constants/globals';
+import { APP } from '../constants/global';
 
 export const calculateVMin = (): number => {
   const vpWidth: number = window.innerWidth;
@@ -8,5 +8,5 @@ export const calculateVMin = (): number => {
 };
 
 export const setCellSize = (): number => {
-  return globals.cellSize > 0 ? globals.cellSize : (calculateVMin() * 6  / 10) * 10;
+  return APP.cellSize > 0 ? APP.cellSize : (calculateVMin() * 6  / 10) * 10;
 };

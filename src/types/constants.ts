@@ -1,11 +1,7 @@
-import { App } from '../components/App';
+import { Editor } from '../components/Editor';
 
 export interface IGlobals {
-  pageInstance: App;
-  eventListeners: {
-    onGridCellClick: EventListener;
-    onPanelObjectClick: EventListener;
-    onPanelActionClick: EventListener;
-  };
+  pageInstance: Editor;
+  eventListeners: { [key: string]: EventListener };
   cellSize: number;
 }

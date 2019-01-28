@@ -60,17 +60,20 @@ function renderPanel() {
     eraser: document.createElement('div'),
   };
 
+  const panelObjectsBlockCanvas: { [key: string]: HTMLCanvasElement } = {
+    block1: document.createElement('canvas'),
+    block2: document.createElement('canvas'),
+    block3: document.createElement('canvas'),
+    block4: document.createElement('canvas'),
+    block5: document.createElement('canvas'),
+    block6: document.createElement('canvas'),
+    block7: document.createElement('canvas'),
+    block8: document.createElement('canvas'),
+  };
+
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectEmptyCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectWallCanvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock1Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock2Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock3Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock4Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock5Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock6Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock7Canvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectBlock8Canvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectEraserCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
 
@@ -78,22 +81,6 @@ function renderPanel() {
   panelObjectEmptyCanvas.height = this.cellSize;
   panelObjectWallCanvas.width = this.cellSize;
   panelObjectWallCanvas.height = this.cellSize;
-  panelObjectBlock1Canvas.width = this.cellSize;
-  panelObjectBlock1Canvas.height = this.cellSize;
-  panelObjectBlock2Canvas.width = this.cellSize;
-  panelObjectBlock2Canvas.height = this.cellSize;
-  panelObjectBlock3Canvas.width = this.cellSize;
-  panelObjectBlock3Canvas.height = this.cellSize;
-  panelObjectBlock4Canvas.width = this.cellSize;
-  panelObjectBlock4Canvas.height = this.cellSize;
-  panelObjectBlock5Canvas.width = this.cellSize;
-  panelObjectBlock5Canvas.height = this.cellSize;
-  panelObjectBlock6Canvas.width = this.cellSize;
-  panelObjectBlock6Canvas.height = this.cellSize;
-  panelObjectBlock7Canvas.width = this.cellSize;
-  panelObjectBlock7Canvas.height = this.cellSize;
-  panelObjectBlock8Canvas.width = this.cellSize;
-  panelObjectBlock8Canvas.height = this.cellSize;
   panelObjectEraserCanvas.width = this.cellSize;
   panelObjectEraserCanvas.height = this.cellSize;
 
@@ -105,30 +92,6 @@ function renderPanel() {
   this.panelObjects.wall.className = '-object';
   this.panelObjects.wall.setAttribute('key', '2');
   this.panelObjects.wall.title = 'Wall';
-  this.panelObjects.block1.className = '-object';
-  this.panelObjects.block1.setAttribute('key', '11');
-  this.panelObjects.block1.title = 'Block type 1';
-  this.panelObjects.block2.className = '-object';
-  this.panelObjects.block2.setAttribute('key', '12');
-  this.panelObjects.block2.title = 'Block type 2';
-  this.panelObjects.block3.className = '-object';
-  this.panelObjects.block3.setAttribute('key', '13');
-  this.panelObjects.block3.title = 'Block type 3';
-  this.panelObjects.block4.className = '-object';
-  this.panelObjects.block4.setAttribute('key', '14');
-  this.panelObjects.block4.title = 'Block type 4';
-  this.panelObjects.block5.className = '-object';
-  this.panelObjects.block5.setAttribute('key', '15');
-  this.panelObjects.block5.title = 'Block type 5';
-  this.panelObjects.block6.className = '-object';
-  this.panelObjects.block6.setAttribute('key', '16');
-  this.panelObjects.block6.title = 'Block type 6';
-  this.panelObjects.block7.className = '-object';
-  this.panelObjects.block7.setAttribute('key', '17');
-  this.panelObjects.block7.title = 'Block type 7';
-  this.panelObjects.block8.className = '-object';
-  this.panelObjects.block8.setAttribute('key', '18');
-  this.panelObjects.block8.title = 'Block type 8';
   this.panelObjects.eraser.classList.add('-object');
   this.panelObjects.eraser.classList.add('eraser');
   this.panelObjects.eraser.title = 'Clear cell';
@@ -139,26 +102,27 @@ function renderPanel() {
   this.editorPanel.appendChild(panelObjects);
   this.panelObjects.empty.appendChild(panelObjectEmptyCanvas);
   this.panelObjects.wall.appendChild(panelObjectWallCanvas);
-  this.panelObjects.block1.appendChild(panelObjectBlock1Canvas);
-  this.panelObjects.block2.appendChild(panelObjectBlock2Canvas);
-  this.panelObjects.block3.appendChild(panelObjectBlock3Canvas);
-  this.panelObjects.block4.appendChild(panelObjectBlock4Canvas);
-  this.panelObjects.block5.appendChild(panelObjectBlock5Canvas);
-  this.panelObjects.block6.appendChild(panelObjectBlock6Canvas);
-  this.panelObjects.block7.appendChild(panelObjectBlock7Canvas);
-  this.panelObjects.block8.appendChild(panelObjectBlock8Canvas);
   this.panelObjects.eraser.appendChild(panelObjectEraserCanvas);
   panelObjects.appendChild(this.panelObjects.empty);
   panelObjects.appendChild(this.panelObjects.wall);
-  panelObjects.appendChild(this.panelObjects.block1);
-  panelObjects.appendChild(this.panelObjects.block2);
-  panelObjects.appendChild(this.panelObjects.block3);
-  panelObjects.appendChild(this.panelObjects.block4);
-  panelObjects.appendChild(this.panelObjects.block5);
-  panelObjects.appendChild(this.panelObjects.block6);
-  panelObjects.appendChild(this.panelObjects.block7);
-  panelObjects.appendChild(this.panelObjects.block8);
-  panelObjects.appendChild(this.panelObjects.eraser);
+
+  for (let i = 1; i <= 8; i += 1) {
+    const blockName = `block${i}`;
+
+    panelObjectsBlockCanvas[blockName].width = this.cellSize;
+    panelObjectsBlockCanvas[blockName].height = this.cellSize;
+
+    this.panelObjects[blockName].className = '-object';
+    this.panelObjects[blockName].setAttribute('key', `${i + 10}`);
+    this.panelObjects[blockName].title = `Block type ${i}`;
+
+    this.panelObjects[blockName].appendChild(panelObjectsBlockCanvas[blockName]);
+
+    panelObjects.appendChild(this.panelObjects[blockName]);
+
+    renderBlock.call(this, panelObjectsBlockCanvas[blockName].getContext('2d'), i);
+  }
+
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(this.panelActions.reset);
   panelActions.appendChild(this.panelActions.generate);
@@ -169,14 +133,6 @@ function renderPanel() {
 
   renderEmptySpace.call(this, panelObjectEmptyCanvas.getContext('2d'));
   renderWall.call(this, panelObjectWallCanvas.getContext('2d'));
-  renderBlock.call(this, panelObjectBlock1Canvas.getContext('2d'), 1);
-  renderBlock.call(this, panelObjectBlock2Canvas.getContext('2d'), 2);
-  renderBlock.call(this, panelObjectBlock3Canvas.getContext('2d'), 3);
-  renderBlock.call(this, panelObjectBlock4Canvas.getContext('2d'), 4);
-  renderBlock.call(this, panelObjectBlock5Canvas.getContext('2d'), 5);
-  renderBlock.call(this, panelObjectBlock6Canvas.getContext('2d'), 6);
-  renderBlock.call(this, panelObjectBlock7Canvas.getContext('2d'), 7);
-  renderBlock.call(this, panelObjectBlock8Canvas.getContext('2d'), 8);
   renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 

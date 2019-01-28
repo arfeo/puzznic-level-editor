@@ -1,4 +1,4 @@
-import { globals } from '../../constants/globals';
+import { APP } from '../../constants/global';
 
 import { GeneratedMap } from '../GeneratedMap';
 
@@ -8,15 +8,19 @@ import { renderEmptySpace, renderWall, renderBlock, clearCell } from './render';
  * Set up app event listeners
  */
 function setUpEventHandlers() {
+  APP.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
+  APP.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
+  APP.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
+
   for (const key in this.panelObjects) {
     if (this.panelObjects.hasOwnProperty(key)) {
-      this.panelObjects[key].addEventListener('click', globals.eventListeners.onPanelObjectClick);
+      this.panelObjects[key].addEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
     if (this.panelActions.hasOwnProperty(key)) {
-      this.panelActions[key].addEventListener('click', globals.eventListeners.onPanelActionClick);
+      this.panelActions[key].addEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
 
@@ -26,7 +30,7 @@ function setUpEventHandlers() {
 
   for (const key in cells) {
     if (cells.hasOwnProperty(key)) {
-      cells[key].addEventListener('click', globals.eventListeners.onGridCellClick);
+      cells[key].addEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
 }
@@ -37,13 +41,13 @@ function setUpEventHandlers() {
 function removeEventHandlers() {
   for (const key in this.panelObjects) {
     if (this.panelObjects.hasOwnProperty(key)) {
-      this.panelObjects[key].removeEventListener('click', globals.eventListeners.onPanelObjectClick);
+      this.panelObjects[key].removeEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
     if (this.panelActions.hasOwnProperty(key)) {
-      this.panelActions[key].removeEventListener('click', globals.eventListeners.onPanelActionClick);
+      this.panelActions[key].removeEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
 
@@ -53,7 +57,7 @@ function removeEventHandlers() {
 
   for (const key in cells) {
     if (cells.hasOwnProperty(key)) {
-      cells[key].removeEventListener('click', globals.eventListeners.onGridCellClick);
+      cells[key].removeEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
 }
@@ -159,7 +163,4 @@ function gridCellClickHandler(event: MouseEvent) {
 export {
   setUpEventHandlers,
   removeEventHandlers,
-  panelObjectClickHandler,
-  panelActionClickHandler,
-  gridCellClickHandler,
 };
