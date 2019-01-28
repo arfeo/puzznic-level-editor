@@ -25,4 +25,6 @@ export const ELEMENTS_COLORS: { [key: string]: { [key: string]: string } } = {
   },
 };
 
+export const ERASER_ICON = '⌫';
+
 export const LABEL_FONT = '3vmin Courier';

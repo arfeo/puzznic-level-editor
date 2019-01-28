@@ -5,7 +5,7 @@ import { APP } from '../../constants/global';
 import { renderEmptySpace, renderWall, renderBlock, clearCell } from './render';
 
 /**
- * Set up app event listeners
+ * Function creates all the Editor's event listeners
  */
 function setUpEventHandlers() {
   APP.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
@@ -36,7 +36,7 @@ function setUpEventHandlers() {
 }
 
 /**
- * Remove app event listeners
+ * Function removes all the Editor's event listeners
  */
 function removeEventHandlers() {
   for (const key in this.panelObjects) {
@@ -63,7 +63,7 @@ function removeEventHandlers() {
 }
 
 /**
- * Panel objects click event handler
+ * Function fires at the click event on a panel object
  *
  * @param event
  */
@@ -82,7 +82,7 @@ function panelObjectClickHandler(event: MouseEvent) {
 }
 
 /**
- * Panel action buttons click handler
+ * Function fires at the click event on a panel action button
  *
  * @param event
  */
@@ -120,7 +120,7 @@ function panelActionClickHandler(event: MouseEvent) {
 }
 
 /**
- * Grid cell click handler
+ * Function fires at the click event on the Editor's grid
  *
  * @param event
  */

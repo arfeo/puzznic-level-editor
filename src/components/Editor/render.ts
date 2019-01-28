@@ -1,10 +1,10 @@
 // tslint:disable:max-file-line-count
-import { ELEMENTS_COLORS, LABEL_FONT } from '../../constants/app';
+import { ELEMENTS_COLORS, ERASER_ICON, LABEL_FONT } from '../../constants/app';
 
 import { drawLineToAngle, drawRectangle, drawTriangle } from '../../utils/drawing';
 
 /**
- * Render the Editor board: grid, canvas, tools panel
+ * Function renders the Editor board: grid, canvas, tools panel
  */
 function renderEditorBoard() {
   const appRoot: HTMLElement = document.getElementById('root');
@@ -51,7 +51,7 @@ function renderEditorBoard() {
 }
 
 /**
- * Render tools panel
+ * Function renders the Editor's panel objects and action buttons
  */
 function renderPanel() {
   this.panelObjects = {
@@ -145,6 +145,11 @@ function renderPanel() {
   renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 
+/**
+ * Function renders an empty cell (`map` element)
+ *
+ * @param ctx
+ */
 function renderEmptySpace(ctx: CanvasRenderingContext2D) {
   drawRectangle(
     ctx,
@@ -156,6 +161,11 @@ function renderEmptySpace(ctx: CanvasRenderingContext2D) {
   );
 }
 
+/**
+ * Function renders a wall (`map` element)
+ *
+ * @param ctx
+ */
 function renderWall(ctx: CanvasRenderingContext2D) {
   drawRectangle(
     ctx,
@@ -199,6 +209,12 @@ function renderWall(ctx: CanvasRenderingContext2D) {
   );
 }
 
+/**
+ * Function renders a block of a given type (`blocks` element)
+ *
+ * @param ctx
+ * @param type
+ */
 function renderBlock(ctx: CanvasRenderingContext2D, type: number) {
   drawRectangle(
     ctx,
@@ -305,7 +321,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number) {
 }
 
 /**
- * Render eraser tool icon
+ * Function renders eraser tool icon
  *
  * @param ctx
  */
@@ -316,14 +332,14 @@ function renderEraser(ctx: CanvasRenderingContext2D) {
   ctx.textBaseline = 'middle';
 
   ctx.fillText(
-    '⌫',
+    ERASER_ICON,
     this.cellSize / 2,
     this.cellSize / 2,
   );
 }
 
 /**
- * Clear cell canvas completely
+ * Function clears a cell's canvas by the given rendering context
  *
  * @param ctx
  */
