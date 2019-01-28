@@ -106,6 +106,15 @@ function panelActionClickHandler(event: MouseEvent) {
   switch (actionType) {
     case Actions.Reset: {
       if (confirm('Are you sure you want to reset current map?')) {
+        this.level = {
+          id: 1,
+          map: [],
+          blocks: [],
+          target: [],
+          bonus: 500,
+          password: '',
+        };
+
         const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
           '.editorBoard .-grid .-cell'
         ) as NodeListOf<HTMLCanvasElement>;
