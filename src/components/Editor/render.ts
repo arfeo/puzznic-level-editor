@@ -35,17 +35,25 @@ function renderEditorBoard() {
     for (let x = 0; x < 10; x += 1) {
       const cell: HTMLElement = document.createElement('div');
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
+      const targetCanvas: HTMLCanvasElement = document.createElement('canvas');
 
       cell.className = '-cell';
-      cellCanvas.id = `canvas-${y}-${x}`;
-      cellCanvas.className = '-canvas';
+
+      cellCanvas.className = '-cell-canvas';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;
       cellCanvas.setAttribute('x', x.toString());
       cellCanvas.setAttribute('y', y.toString());
 
+      targetCanvas.className = '-target-canvas';
+      targetCanvas.width = this.cellSize;
+      targetCanvas.height = this.cellSize;
+      targetCanvas.setAttribute('x', x.toString());
+      targetCanvas.setAttribute('y', y.toString());
+
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
+      cell.appendChild(targetCanvas);
     }
   }
 }
@@ -406,17 +414,14 @@ function renderEraser(ctx: CanvasRenderingContext2D) {
 }
 
 /**
- * Function clears a cell's canvas by the given rendering context
+ * Function clears a cell (both cell & target canvases) by given rendering contexts
  *
- * @param ctx
+ * @param cellCtx
+ * @param targetCtx
  */
-function clearCell(ctx: CanvasRenderingContext2D) {
-  ctx.clearRect(
-    0,
-    0,
-    this.cellSize,
-    this.cellSize,
-  );
+function clearCell(cellCtx: CanvasRenderingContext2D, targetCtx: CanvasRenderingContext2D) {
+  cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
+  targetCtx.clearRect(0, 0, this.cellSize, this.cellSize);
 }
 
 export {

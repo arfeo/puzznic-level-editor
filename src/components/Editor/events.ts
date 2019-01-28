@@ -36,7 +36,7 @@ function setUpEventHandlers() {
   }
 
   const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
-    '.editorBoard .-grid .-cell .-canvas'
+    '.editorBoard .-grid .-cell'
   ) as NodeListOf<HTMLCanvasElement>;
 
   for (const key in cells) {
@@ -63,7 +63,7 @@ function removeEventHandlers() {
   }
 
   const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
-    '.editorBoard .-grid .-cell .-canvas'
+    '.editorBoard .-grid .-cell'
   ) as NodeListOf<HTMLCanvasElement>;
 
   for (const key in cells) {
@@ -107,12 +107,17 @@ function panelActionClickHandler(event: MouseEvent) {
     case Actions.Reset: {
       if (confirm('Are you sure you want to reset current map?')) {
         const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
-          '.editorBoard .-grid .-cell .-canvas'
+          '.editorBoard .-grid .-cell'
         ) as NodeListOf<HTMLCanvasElement>;
 
         for (const key in cells) {
           if (cells.hasOwnProperty(key)) {
-            clearCell.call(this, cells[key].getContext('2d'));
+            const cellCanvas: HTMLCanvasElement = cells[key].querySelector<HTMLCanvasElement>('.-cell-canvas');
+            const targetCanvas: HTMLCanvasElement = cells[key].querySelector<HTMLCanvasElement>('.-target-canvas');
+            const cellCtx: CanvasRenderingContext2D = cellCanvas.getContext('2d');
+            const targetCtx: CanvasRenderingContext2D = targetCanvas.getContext('2d');
+
+            clearCell.call(this, cellCtx, targetCtx);
           }
         }
 
@@ -136,24 +141,27 @@ function panelActionClickHandler(event: MouseEvent) {
 function gridCellClickHandler(event: MouseEvent) {
   event.stopPropagation();
 
-  const currentCanvas: HTMLCanvasElement = event.target as HTMLCanvasElement;
-  const ctx: CanvasRenderingContext2D = currentCanvas.getContext('2d');
-  const cellX: number = parseInt(currentCanvas.getAttribute('x'));
-  const cellY: number = parseInt(currentCanvas.getAttribute('y'));
+  const currentTarget: HTMLElement = event.currentTarget as HTMLElement;
+  const cellCanvas: HTMLCanvasElement = currentTarget.querySelector<HTMLCanvasElement>('.-cell-canvas');
+  const targetCanvas: HTMLCanvasElement = currentTarget.querySelector<HTMLCanvasElement>('.-target-canvas');
+  const cellCtx: CanvasRenderingContext2D = cellCanvas.getContext('2d');
+  const targetCtx: CanvasRenderingContext2D = targetCanvas.getContext('2d');
+  const cellX: number = parseInt(cellCanvas.getAttribute('x'));
+  const cellY: number = parseInt(cellCanvas.getAttribute('y'));
 
   switch (this.selectedObject) {
     case LevelObjects.Nothing: {
-      return clearCell.call(this, ctx);
+      return clearCell.call(this, cellCtx, targetCtx);
     }
     case LevelObjects.Empty: {
       this.level.map[cellY][cellX] = this.selectedObject;
 
-      return renderEmptySpace.call(this, ctx);
+      return renderEmptySpace.call(this, cellCtx);
     }
     case LevelObjects.Wall: {
       this.level.map[cellY][cellX] = this.selectedObject;
 
-      return renderWall.call(this, ctx);
+      return renderWall.call(this, cellCtx);
     }
     case LevelObjects.Block1:
     case LevelObjects.Block2:
@@ -175,10 +183,20 @@ function gridCellClickHandler(event: MouseEvent) {
       this.level.map[cellY][cellX] = LevelObjects.Empty;
       this.level.blocks = JSON.parse(JSON.stringify(blocksCloned));
 
-      return renderBlock.call(this, ctx, this.selectedObject - 10);
+      return renderBlock.call(this, cellCtx, this.selectedObject - 10);
     }
     case LevelObjects.Target: {
-      return renderTarget.call(this, ctx);
+      if (this.level.target.length > 0) {
+        const previousTargetCanvas: HTMLCanvasElement = document.querySelector(
+          `.editorBoard .-grid .-cell .-target-canvas[x="${this.level.target[1]}"][y="${this.level.target[0]}"]`
+        ) as HTMLCanvasElement;
+
+        previousTargetCanvas.getContext('2d').clearRect(0, 0, this.cellSize, this.cellSize);
+      }
+
+      this.level.target = [cellY, cellX];
+
+      return renderTarget.call(this, targetCtx);
     }
     default: {
       return alert('There is nothing to insert: select an object from the panel');

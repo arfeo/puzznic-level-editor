@@ -23,9 +23,19 @@
       border-color: $white $grey $grey $white;
 
       .-cell {
+        position: relative;
         width: calc(#{$cellSize} - 2px);
         height: calc(#{$cellSize} - 2px);
         border: 1px solid rgba(255, 255, 255, 0.15);
+
+        .-cell-canvas,
+        .-target-canvas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
   }
