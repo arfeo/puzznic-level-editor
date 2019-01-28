@@ -11,6 +11,14 @@ function renderEditorBoard() {
   const editorBoard: HTMLElement = document.createElement('div');
   const gridContainer: HTMLElement = document.createElement('div');
 
+  this.editorBoardGrid = document.createElement('div');
+  this.editorPanel = document.createElement('div');
+
+  this.panelActions = {
+    reset: document.createElement('div'),
+    generate: document.createElement('div'),
+  };
+
   appRoot.innerHTML = '';
 
   editorBoard.className = 'editorBoard';
@@ -123,6 +131,7 @@ function renderPanel() {
     renderBlock.call(this, panelObjectsBlockCanvas[blockName].getContext('2d'), i);
   }
 
+  panelObjects.appendChild(this.panelObjects.eraser);
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(this.panelActions.reset);
   panelActions.appendChild(this.panelActions.generate);

@@ -6,23 +6,12 @@ class Editor {
   editorBoardGrid: HTMLElement;
   editorPanel: HTMLElement;
   panelObjects: { [key: string]: HTMLElement };
-  panelActions: {
-    reset: HTMLElement;
-    generate: HTMLElement;
-  };
+  panelActions: { [key: string]: HTMLElement };
   cellSize: number;
   currentObject: number;
   currentMap: number[][];
 
   constructor() {
-    this.editorBoardGrid = document.createElement('div');
-    this.editorPanel = document.createElement('div');
-
-    this.panelActions = {
-      reset: document.createElement('div'),
-      generate: document.createElement('div'),
-    };
-
     this.currentObject = -1;
     this.cellSize = setCellSize();
     this.currentMap = [];

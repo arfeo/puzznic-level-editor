@@ -1,6 +1,6 @@
-import { APP } from '../../constants/global';
-
 import { GeneratedMap } from '../GeneratedMap';
+
+import { APP } from '../../constants/global';
 
 import { renderEmptySpace, renderWall, renderBlock, clearCell } from './render';
 
