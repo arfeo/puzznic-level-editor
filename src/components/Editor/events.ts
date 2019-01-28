@@ -141,12 +141,12 @@ function gridCellClickHandler(event: MouseEvent) {
       return clearCell.call(this, ctx);
     }
     case 1: {
-      this.currentMap[cellY][cellX] = this.selectedObject;
+      this.level.map[cellY][cellX] = this.selectedObject;
 
       return renderEmptySpace.call(this, ctx);
     }
     case 2: {
-      this.currentMap[cellY][cellX] = this.selectedObject;
+      this.level.map[cellY][cellX] = this.selectedObject;
 
       return renderWall.call(this, ctx);
     }

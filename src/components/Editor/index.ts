@@ -2,7 +2,7 @@ import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
 import { setUpEventHandlers, removeEventHandlers } from './events';
 
-import { IBlock } from '../../types/editor';
+import { ILevel } from '../../types/editor';
 
 class Editor {
   editorBoardGrid: HTMLElement;
@@ -11,16 +11,19 @@ class Editor {
   panelActions: { [key: string]: HTMLElement };
   cellSize: number;
   selectedObject: number;
-  currentMap: number[][];
-  currentBlocks: IBlock[];
-  currentTarget: number[];
+  level: ILevel;
 
   constructor() {
-    this.selectedObject = -1;
     this.cellSize = setCellSize();
-    this.currentMap = [];
-    this.currentBlocks = [];
-    this.currentTarget = [];
+    this.selectedObject = -1;
+    this.level = {
+      id: 1,
+      map: [],
+      blocks: [],
+      target: [],
+      bonus: 500,
+      password: '',
+    };
 
     this.resetMap();
     this.render();
@@ -39,10 +42,10 @@ class Editor {
 
   resetMap() {
     for (let y = 0; y < 12; y += 1) {
-      this.currentMap[y] = [];
+      this.level.map[y] = [];
 
       for (let x = 0; x < 10; x += 1) {
-        this.currentMap[y].push(0);
+        this.level.map[y].push(0);
       }
     }
   }

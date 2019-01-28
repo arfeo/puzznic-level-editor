@@ -16,7 +16,7 @@ class GeneratedMap extends Modal {
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');
 
     generatedMapContainer.innerHTML = '<strong>Generated map</strong>';
-    this.mapTextArea.innerHTML = JSON.stringify(this.editor.currentMap);
+    this.mapTextArea.innerHTML = JSON.stringify(this.editor.level.map);
     this.mapTextArea.style.width = '100%';
     this.mapTextArea.style.height = '40vmin';
     modalSubmit.className = 'modal-submit';
