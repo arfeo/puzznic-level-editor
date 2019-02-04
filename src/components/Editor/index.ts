@@ -1,3 +1,5 @@
+import { CELL_SIZE_VMIN } from '../../constants/app';
+
 import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
 import { setUpEventHandlers, removeEventHandlers } from './events';
@@ -14,7 +16,7 @@ class Editor {
   level: ILevel;
 
   constructor() {
-    this.cellSize = setCellSize();
+    this.cellSize = setCellSize(CELL_SIZE_VMIN);
     this.selectedObject = -1;
     this.level = {
       id: 1,
@@ -42,11 +44,7 @@ class Editor {
 
   resetMap() {
     for (let y = 0; y < 12; y += 1) {
-      this.level.map[y] = [];
-
-      for (let x = 0; x < 10; x += 1) {
-        this.level.map[y].push(0);
-      }
+      this.level.map[y] = Array(10).fill(0);
     }
   }
 }

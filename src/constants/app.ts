@@ -43,6 +43,8 @@ export const ELEMENTS_COLORS: { [key: string]: { [key: string]: string } } = {
   },
 };
 
+export const CELL_SIZE_VMIN = 6;
+
 export const ERASER_ICON = '⌫';
 
 export const LABEL_FONT = '3vmin Courier';
