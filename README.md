@@ -17,11 +17,11 @@ $ yarn
 ```
 
 ```
-$ gulp
+$ yarn start
 ```
 
 Build:
 
 ```
-$ gulp build
+$ yarn build
 ```
