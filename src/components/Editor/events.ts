@@ -18,7 +18,7 @@ import { IBlock } from '../../types/editor';
 /**
  * Function creates all the Editor's event listeners
  */
-function setUpEventHandlers() {
+function setUpEventHandlers(): void {
   APP.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
   APP.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
   APP.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
@@ -49,7 +49,7 @@ function setUpEventHandlers() {
 /**
  * Function removes all the Editor's event listeners
  */
-function removeEventHandlers() {
+function removeEventHandlers(): void {
   for (const key in this.panelObjects) {
     if (Object.prototype.hasOwnProperty.call(this.panelObjects, key)) {
       this.panelObjects[key].removeEventListener('click', APP.eventListeners.onPanelObjectClick);
@@ -78,7 +78,7 @@ function removeEventHandlers() {
  *
  * @param event
  */
-function panelObjectClickHandler(event: MouseEvent) {
+function panelObjectClickHandler(event: MouseEvent): void {
   const currentObject: HTMLElement = event.currentTarget as HTMLElement;
 
   for (const key in this.panelObjects) {
@@ -97,7 +97,7 @@ function panelObjectClickHandler(event: MouseEvent) {
  *
  * @param event
  */
-function panelActionClickHandler(event: MouseEvent) {
+function panelActionClickHandler(event: MouseEvent): void {
   event.stopPropagation();
 
   const action: HTMLElement = event.target as HTMLElement;
@@ -147,7 +147,7 @@ function panelActionClickHandler(event: MouseEvent) {
  *
  * @param event
  */
-function gridCellClickHandler(event: MouseEvent) {
+function gridCellClickHandler(event: MouseEvent): void {
   event.stopPropagation();
 
   const currentTarget: HTMLElement = event.currentTarget as HTMLElement;

@@ -31,18 +31,18 @@ class Editor {
     this.render();
   }
 
-  render() {
+  render(): void {
     renderEditorBoard.call(this);
     renderPanel.call(this);
 
     setUpEventHandlers.call(this);
   }
 
-  destroy() {
+  destroy(): void {
     removeEventHandlers.call(this);
   }
 
-  resetMap() {
+  resetMap(): void {
     for (let y = 0; y < 12; y += 1) {
       this.level.map[y] = Array(10).fill(0);
     }

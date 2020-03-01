@@ -6,7 +6,7 @@ import { drawLineToAngle, drawRectangle, drawTriangle } from '../../utils/drawin
 /**
  * Function renders the Editor board: grid, canvas, tools panel
  */
-function renderEditorBoard() {
+function renderEditorBoard(): void {
   const appRoot: HTMLElement = document.getElementById('root');
   const editorBoard: HTMLElement = document.createElement('div');
   const gridContainer: HTMLElement = document.createElement('div');
@@ -61,7 +61,7 @@ function renderEditorBoard() {
 /**
  * Function renders the Editor's panel objects and action buttons
  */
-function renderPanel() {
+function renderPanel(): void {
   this.panelObjects = {
     empty: document.createElement('div'),
     wall: document.createElement('div'),
@@ -168,7 +168,7 @@ function renderPanel() {
  *
  * @param ctx
  */
-function renderEmptySpace(ctx: CanvasRenderingContext2D) {
+function renderEmptySpace(ctx: CanvasRenderingContext2D): void {
   drawRectangle(
     ctx,
     0,
@@ -184,7 +184,7 @@ function renderEmptySpace(ctx: CanvasRenderingContext2D) {
  *
  * @param ctx
  */
-function renderWall(ctx: CanvasRenderingContext2D) {
+function renderWall(ctx: CanvasRenderingContext2D): void {
   drawRectangle(
     ctx,
     0,
@@ -233,7 +233,7 @@ function renderWall(ctx: CanvasRenderingContext2D) {
  * @param ctx
  * @param type
  */
-function renderBlock(ctx: CanvasRenderingContext2D, type: number) {
+function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
   drawRectangle(
     ctx,
     0,
@@ -343,7 +343,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number) {
  *
  * @param ctx
  */
-function renderTarget(ctx: CanvasRenderingContext2D) {
+function renderTarget(ctx: CanvasRenderingContext2D): void {
   ctx.clearRect(
     this.cellSize * 2,
     this.cellSize * 2,
@@ -400,7 +400,7 @@ function renderTarget(ctx: CanvasRenderingContext2D) {
  *
  * @param ctx
  */
-function renderEraser(ctx: CanvasRenderingContext2D) {
+function renderEraser(ctx: CanvasRenderingContext2D): void {
   ctx.fillStyle = ELEMENTS_COLORS.eraser.color;
   ctx.font = LABEL_FONT;
   ctx.textAlign = 'center';
@@ -419,7 +419,7 @@ function renderEraser(ctx: CanvasRenderingContext2D) {
  * @param cellCtx
  * @param targetCtx
  */
-function clearCell(cellCtx?: CanvasRenderingContext2D, targetCtx?: CanvasRenderingContext2D) {
+function clearCell(cellCtx?: CanvasRenderingContext2D, targetCtx?: CanvasRenderingContext2D): void {
   if (cellCtx) {
     cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
   }

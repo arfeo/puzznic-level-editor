@@ -11,7 +11,7 @@ abstract class Modal {
   modal: HTMLElement;
   abstract render(): void;
 
-  protected constructor(editor: Editor, size?: 'large' | 'medium' | 'small') {
+  constructor(editor: Editor, size?: 'large' | 'medium' | 'small') {
     this.editor = editor;
 
     this.modalContainer = document.createElement('div');
@@ -43,7 +43,7 @@ abstract class Modal {
     this.modalClose.addEventListener('click', this.close.bind(this));
   }
 
-  close() {
+  close(): void {
     this.modalContainer.remove();
 
     setUpEventHandlers.call(this.editor);
