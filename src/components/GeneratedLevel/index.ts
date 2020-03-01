@@ -11,9 +11,10 @@ class GeneratedLevel extends Modal {
   render() {
     const generatedMapContainer: HTMLElement = document.createElement('div');
     const paragraph: HTMLParagraphElement = document.createElement('p');
-    this.levelTextArea = document.createElement('textarea');
     const modalSubmit: HTMLElement = document.createElement('div');
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');
+
+    this.levelTextArea = document.createElement('textarea');
 
     generatedMapContainer.innerHTML = '<strong>Generated level</strong>';
     this.levelTextArea.innerHTML = JSON.stringify(this.editor.level);
