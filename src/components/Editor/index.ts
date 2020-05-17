@@ -4,7 +4,7 @@ import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
 import { setUpEventHandlers, removeEventHandlers } from './events';
 
-import { ILevel } from '../../types/editor';
+import { Level } from '../../types/editor';
 
 class Editor {
   editorBoardGrid: HTMLElement;
@@ -13,7 +13,7 @@ class Editor {
   panelActions: { [key: string]: HTMLElement };
   cellSize: number;
   selectedObject: number;
-  level: ILevel;
+  level: Level;
 
   constructor() {
     this.cellSize = setCellSize(CELL_SIZE_VMIN);

@@ -1,7 +1,6 @@
-import { IGlobals } from '../types/constants';
+import { App } from '../types/constants';
 
-export const APP: IGlobals = {
-  pageInstance: null,
+export const APP: App = {
   eventListeners: {
     onGridCellClick: null,
     onPanelObjectClick: null,

@@ -1,5 +1,5 @@
 // tslint:disable:max-file-line-count
-import { ELEMENTS_COLORS, ERASER_ICON, LABEL_FONT } from '../../constants/app';
+import { LABEL_FONT } from '../../constants/app';
 
 import { drawLineToAngle, drawRectangle, drawTriangle } from '../../utils/drawing';
 
@@ -175,7 +175,7 @@ function renderEmptySpace(ctx: CanvasRenderingContext2D): void {
     0,
     this.cellSize,
     this.cellSize,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
 }
 
@@ -191,21 +191,21 @@ function renderWall(ctx: CanvasRenderingContext2D): void {
     0,
     this.cellSize,
     this.cellSize,
-    ELEMENTS_COLORS.wall.border,
+    'rgb(96, 95, 96)',
   );
   drawTriangle(
     ctx,
     [this.cellSize / 12, this.cellSize / 12],
     [this.cellSize - this.cellSize / 6, this.cellSize / 12],
     [this.cellSize / 12, this.cellSize - this.cellSize / 6],
-    ELEMENTS_COLORS.wall.background,
+    'rgb(255, 255, 255)',
   );
   drawTriangle(
     ctx,
     [this.cellSize / 12, this.cellSize - this.cellSize / 6],
     [this.cellSize - this.cellSize / 6, this.cellSize / 12],
     [this.cellSize - this.cellSize / 6, this.cellSize - this.cellSize / 6],
-    ELEMENTS_COLORS.wall.shadow,
+    'rgb(190, 188, 191)',
   );
   drawLineToAngle(
     ctx,
@@ -213,7 +213,7 @@ function renderWall(ctx: CanvasRenderingContext2D): void {
     this.cellSize - this.cellSize / 24,
     this.cellSize,
     0,
-    ELEMENTS_COLORS.wall.margin,
+    'rgb(0, 0, 0)',
     this.cellSize / 12,
   );
   drawLineToAngle(
@@ -222,7 +222,7 @@ function renderWall(ctx: CanvasRenderingContext2D): void {
     this.cellSize,
     this.cellSize,
     270,
-    ELEMENTS_COLORS.wall.margin,
+    'rgb(0, 0, 0)',
     this.cellSize / 12,
   );
 }
@@ -240,7 +240,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     0,
     this.cellSize,
     this.cellSize,
-    ELEMENTS_COLORS.block.border,
+    'rgb(0, 0, 0)',
   );
   drawRectangle(
     ctx,
@@ -248,7 +248,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize / 6,
     this.cellSize * 2 / 3,
     this.cellSize * 2 / 3,
-    ELEMENTS_COLORS.block.background,
+    'rgb(96, 95, 96)',
   );
   drawLineToAngle(
     ctx,
@@ -256,7 +256,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize / 6,
     this.cellSize * 2 / 3,
     90,
-    ELEMENTS_COLORS.block.highlight,
+    'rgb(187, 186, 188)',
     this.cellSize / 12,
   );
   drawLineToAngle(
@@ -265,7 +265,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize * 3 / 24,
     this.cellSize * 2 / 3,
     0,
-    ELEMENTS_COLORS.block.highlight,
+    'rgb(187, 186, 188)',
     this.cellSize / 12,
   );
   drawLineToAngle(
@@ -274,7 +274,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize * 21 / 24,
     this.cellSize * 2 / 3,
     0,
-    ELEMENTS_COLORS.block.background,
+    'rgb(96, 95, 96)',
     this.cellSize / 12,
   );
   drawLineToAngle(
@@ -283,7 +283,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize / 6,
     this.cellSize * 2 / 3,
     90,
-    ELEMENTS_COLORS.block.background,
+    'rgb(96, 95, 96)',
     this.cellSize / 12,
   );
   drawRectangle(
@@ -292,7 +292,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     0,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -300,7 +300,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     0,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -308,7 +308,7 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize * 11 / 12,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -316,21 +316,21 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
     this.cellSize * 11 / 12,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
 
   ctx.font = LABEL_FONT;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
-  ctx.fillStyle = ELEMENTS_COLORS.block.labelShadow;
+  ctx.fillStyle = 'rgb(0, 0, 0)';
   ctx.fillText(
     type.toString(),
     this.cellSize * 7 / 12,
     this.cellSize * 7 / 12,
   );
 
-  ctx.fillStyle = ELEMENTS_COLORS.block.label;
+  ctx.fillStyle = 'rgb(255, 255, 255)';
   ctx.fillText(
     type.toString(),
     this.cellSize / 2,
@@ -359,7 +359,7 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
     this.cellSize * 5 / 6,
     null,
     this.cellSize / 6,
-    ELEMENTS_COLORS.target.border,
+    'rgb(190, 188, 191)',
   );
   drawRectangle(
     ctx,
@@ -367,7 +367,7 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
     0,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -375,7 +375,7 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
     0,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -383,7 +383,7 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
     this.cellSize * 11 / 12,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
   drawRectangle(
     ctx,
@@ -391,7 +391,7 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
     this.cellSize - this.cellSize / 12,
     this.cellSize / 12,
     this.cellSize / 12,
-    ELEMENTS_COLORS.empty.background,
+    'rgb(255, 255, 255)',
   );
 }
 
@@ -401,13 +401,13 @@ function renderTarget(ctx: CanvasRenderingContext2D): void {
  * @param ctx
  */
 function renderEraser(ctx: CanvasRenderingContext2D): void {
-  ctx.fillStyle = ELEMENTS_COLORS.eraser.color;
+  ctx.fillStyle = 'rgb(255, 0, 0)';
   ctx.font = LABEL_FONT;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
   ctx.fillText(
-    ERASER_ICON,
+    '𝗫',
     this.cellSize / 2,
     this.cellSize / 2,
   );

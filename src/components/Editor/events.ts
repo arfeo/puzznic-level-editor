@@ -13,7 +13,7 @@ import {
 
 import { excludeBlock } from './utils';
 
-import { IBlock } from '../../types/editor';
+import { Block } from '../../types/editor';
 
 /**
  * Function creates all the Editor's event listeners
@@ -181,7 +181,7 @@ function gridCellClickHandler(event: MouseEvent): void {
     case LevelObjects.Block7:
     case LevelObjects.Block8: {
       const blockPosition: number[] = [cellY, cellX];
-      const blocksCloned: IBlock[] = excludeBlock.call(this, blockPosition);
+      const blocksCloned: Block[] = excludeBlock.call(this, blockPosition);
 
       blocksCloned.push({
         id: blocksCloned.length + 1,
