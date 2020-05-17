@@ -1,3 +1,5 @@
+import * as stringify from 'json-stringify-pretty-compact';
+
 import { Modal } from '../common/Modal';
 
 class GeneratedLevel extends Modal {
@@ -12,7 +14,7 @@ class GeneratedLevel extends Modal {
     this.levelTextArea = document.createElement('textarea');
 
     generatedMapContainer.innerHTML = '<strong>Generated level</strong>';
-    this.levelTextArea.innerHTML = JSON.stringify(this.editor.level);
+    this.levelTextArea.innerHTML = stringify(this.editor.level);
     this.levelTextArea.style.width = '100%';
     this.levelTextArea.style.height = '40vmin';
     modalSubmit.className = 'modal-submit';
