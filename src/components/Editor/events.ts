@@ -111,7 +111,6 @@ function panelActionClickHandler(event: MouseEvent): void {
           map: [],
           blocks: [],
           target: [],
-          bonus: 500,
           password: '',
         };
 
