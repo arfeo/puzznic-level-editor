@@ -23,7 +23,6 @@ class Editor {
       map: [],
       blocks: [],
       target: [],
-      bonus: 500,
       password: '',
     };
 
