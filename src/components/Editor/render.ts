@@ -35,7 +35,6 @@ function renderEditorBoard(): void {
     for (let x = 0; x < 10; x += 1) {
       const cell: HTMLElement = document.createElement('div');
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
-      const targetCanvas: HTMLCanvasElement = document.createElement('canvas');
 
       cell.className = '-cell';
 
@@ -45,15 +44,8 @@ function renderEditorBoard(): void {
       cellCanvas.setAttribute('x', x.toString());
       cellCanvas.setAttribute('y', y.toString());
 
-      targetCanvas.className = '-target-canvas';
-      targetCanvas.width = this.cellSize;
-      targetCanvas.height = this.cellSize;
-      targetCanvas.setAttribute('x', x.toString());
-      targetCanvas.setAttribute('y', y.toString());
-
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
-      cell.appendChild(targetCanvas);
     }
   }
 }
@@ -73,7 +65,6 @@ function renderPanel(): void {
     block6: document.createElement('div'),
     block7: document.createElement('div'),
     block8: document.createElement('div'),
-    target: document.createElement('div'),
     eraser: document.createElement('div'),
   };
 
@@ -91,7 +82,6 @@ function renderPanel(): void {
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectEmptyCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectWallCanvas: HTMLCanvasElement = document.createElement('canvas');
-  const panelObjectTargetCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectEraserCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
 
@@ -99,8 +89,6 @@ function renderPanel(): void {
   panelObjectEmptyCanvas.height = this.cellSize;
   panelObjectWallCanvas.width = this.cellSize;
   panelObjectWallCanvas.height = this.cellSize;
-  panelObjectTargetCanvas.width = this.cellSize;
-  panelObjectTargetCanvas.height = this.cellSize;
   panelObjectEraserCanvas.width = this.cellSize;
   panelObjectEraserCanvas.height = this.cellSize;
 
@@ -112,9 +100,6 @@ function renderPanel(): void {
   this.panelObjects.wall.className = '-object';
   this.panelObjects.wall.setAttribute('key', '2');
   this.panelObjects.wall.title = 'Wall';
-  this.panelObjects.target.className = '-object';
-  this.panelObjects.target.setAttribute('key', '20');
-  this.panelObjects.target.title = 'Target';
   this.panelObjects.eraser.classList.add('-object');
   this.panelObjects.eraser.classList.add('eraser');
   this.panelObjects.eraser.title = 'Clear cell';
@@ -125,7 +110,6 @@ function renderPanel(): void {
   this.editorPanel.appendChild(panelObjects);
   this.panelObjects.empty.appendChild(panelObjectEmptyCanvas);
   this.panelObjects.wall.appendChild(panelObjectWallCanvas);
-  this.panelObjects.target.appendChild(panelObjectTargetCanvas);
   this.panelObjects.eraser.appendChild(panelObjectEraserCanvas);
   panelObjects.appendChild(this.panelObjects.empty);
   panelObjects.appendChild(this.panelObjects.wall);
@@ -147,7 +131,6 @@ function renderPanel(): void {
     renderBlock.call(this, panelObjectsBlockCanvas[blockName].getContext('2d'), i);
   }
 
-  panelObjects.appendChild(this.panelObjects.target);
   panelObjects.appendChild(this.panelObjects.eraser);
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(this.panelActions.reset);
@@ -159,7 +142,6 @@ function renderPanel(): void {
 
   renderEmptySpace.call(this, panelObjectEmptyCanvas.getContext('2d'));
   renderWall.call(this, panelObjectWallCanvas.getContext('2d'));
-  renderTarget.call(this, panelObjectTargetCanvas.getContext('2d'));
   renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 
@@ -339,63 +321,6 @@ function renderBlock(ctx: CanvasRenderingContext2D, type: number): void {
 }
 
 /**
- * Function renders the target -- a border with rectangle shape
- *
- * @param ctx
- */
-function renderTarget(ctx: CanvasRenderingContext2D): void {
-  ctx.clearRect(
-    this.cellSize * 2,
-    this.cellSize * 2,
-    this.cellSize * 5,
-    this.cellSize * 5,
-  );
-
-  drawRectangle(
-    ctx,
-    this.cellSize / 12,
-    this.cellSize / 12,
-    this.cellSize * 5 / 6,
-    this.cellSize * 5 / 6,
-    null,
-    this.cellSize / 6,
-    'rgb(190, 188, 191)',
-  );
-  drawRectangle(
-    ctx,
-    0,
-    0,
-    this.cellSize / 12,
-    this.cellSize / 12,
-    'rgb(255, 255, 255)',
-  );
-  drawRectangle(
-    ctx,
-    this.cellSize * 11 / 12,
-    0,
-    this.cellSize / 12,
-    this.cellSize / 12,
-    'rgb(255, 255, 255)',
-  );
-  drawRectangle(
-    ctx,
-    this.cellSize * 11 / 12,
-    this.cellSize * 11 / 12,
-    this.cellSize / 12,
-    this.cellSize / 12,
-    'rgb(255, 255, 255)',
-  );
-  drawRectangle(
-    ctx,
-    0,
-    this.cellSize - this.cellSize / 12,
-    this.cellSize / 12,
-    this.cellSize / 12,
-    'rgb(255, 255, 255)',
-  );
-}
-
-/**
  * Function renders eraser tool icon
  *
  * @param ctx
@@ -414,19 +339,16 @@ function renderEraser(ctx: CanvasRenderingContext2D): void {
 }
 
 /**
- * Function clears a cell (both cell & target canvases) by given rendering contexts
+ * Function clears a cell by given rendering contexts
  *
  * @param cellCtx
- * @param targetCtx
  */
-function clearCell(cellCtx?: CanvasRenderingContext2D, targetCtx?: CanvasRenderingContext2D): void {
-  if (cellCtx) {
-    cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
+function clearCell(cellCtx?: CanvasRenderingContext2D): void {
+  if (!cellCtx) {
+    return;
   }
 
-  if (targetCtx) {
-    targetCtx.clearRect(0, 0, this.cellSize, this.cellSize);
-  }
+  cellCtx.clearRect(0, 0, this.cellSize, this.cellSize);
 }
 
 export {
@@ -435,6 +357,5 @@ export {
   renderEmptySpace,
   renderWall,
   renderBlock,
-  renderTarget,
   clearCell,
 };

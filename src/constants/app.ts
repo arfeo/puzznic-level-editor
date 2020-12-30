@@ -10,7 +10,6 @@ export enum LevelObjects {
   Block6 = 16,
   Block7 = 17,
   Block8 = 18,
-  Target = 20,
 }
 
 export enum Actions {

@@ -7,7 +7,6 @@ import {
   renderEmptySpace,
   renderWall,
   renderBlock,
-  renderTarget,
   clearCell,
 } from './render';
 
@@ -110,7 +109,6 @@ function panelActionClickHandler(event: MouseEvent): void {
           id: 1,
           map: [],
           blocks: [],
-          target: [],
           password: '',
         };
 
@@ -121,11 +119,9 @@ function panelActionClickHandler(event: MouseEvent): void {
         for (const key in cells) {
           if (Object.prototype.hasOwnProperty.call(cells, key)) {
             const cellCanvas: HTMLCanvasElement = cells[key].querySelector<HTMLCanvasElement>('.-cell-canvas');
-            const targetCanvas: HTMLCanvasElement = cells[key].querySelector<HTMLCanvasElement>('.-target-canvas');
             const cellCtx: CanvasRenderingContext2D = cellCanvas.getContext('2d');
-            const targetCtx: CanvasRenderingContext2D = targetCanvas.getContext('2d');
 
-            clearCell.call(this, cellCtx, targetCtx);
+            clearCell.call(this, cellCtx);
           }
         }
 
@@ -151,15 +147,22 @@ function gridCellClickHandler(event: MouseEvent): void {
 
   const currentTarget: HTMLElement = event.currentTarget as HTMLElement;
   const cellCanvas: HTMLCanvasElement = currentTarget.querySelector<HTMLCanvasElement>('.-cell-canvas');
-  const targetCanvas: HTMLCanvasElement = currentTarget.querySelector<HTMLCanvasElement>('.-target-canvas');
   const cellCtx: CanvasRenderingContext2D = cellCanvas.getContext('2d');
-  const targetCtx: CanvasRenderingContext2D = targetCanvas.getContext('2d');
   const cellX: number = parseInt(cellCanvas.getAttribute('x'), 10);
   const cellY: number = parseInt(cellCanvas.getAttribute('y'), 10);
 
   switch (this.selectedObject) {
     case LevelObjects.Nothing: {
-      return clearCell.call(this, cellCtx, targetCtx);
+      this.level.blocks = [
+        ...this.level.blocks
+          .filter((block: Block) => !(block.position[0] === cellY && block.position[1] === cellX))
+          .map((block: Block, index: number) => ({
+            ...block,
+            id: index + 1,
+          })),
+      ];
+
+      return clearCell.call(this, cellCtx);
     }
     case LevelObjects.Empty: {
       this.level.map[cellY][cellX] = this.selectedObject;
@@ -179,7 +182,7 @@ function gridCellClickHandler(event: MouseEvent): void {
     case LevelObjects.Block6:
     case LevelObjects.Block7:
     case LevelObjects.Block8: {
-      const blockPosition: number[] = [cellY, cellX];
+      const blockPosition: [number, number] = [cellY, cellX];
       const blocksCloned: Block[] = excludeBlock.call(this, blockPosition);
 
       blocksCloned.push({
@@ -192,19 +195,6 @@ function gridCellClickHandler(event: MouseEvent): void {
       this.level.blocks = JSON.parse(JSON.stringify(blocksCloned));
 
       return renderBlock.call(this, cellCtx, this.selectedObject - 10);
-    }
-    case LevelObjects.Target: {
-      if (this.level.target.length > 0) {
-        const previousTargetCanvas: HTMLCanvasElement = document.querySelector(
-          `.editorBoard .-grid .-cell .-target-canvas[x="${this.level.target[1]}"][y="${this.level.target[0]}"]`
-        ) as HTMLCanvasElement;
-
-        clearCell.call(this, null, previousTargetCanvas.getContext('2d'));
-      }
-
-      this.level.target = [cellY, cellX];
-
-      return renderTarget.call(this, targetCtx);
     }
     default: {
       return alert('There is nothing to insert: select an object from the panel');

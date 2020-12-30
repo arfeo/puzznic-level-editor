@@ -22,7 +22,6 @@ class Editor {
       id: 1,
       map: [],
       blocks: [],
-      target: [],
       password: '',
     };
 

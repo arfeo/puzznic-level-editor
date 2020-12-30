@@ -28,8 +28,7 @@
         height: calc(#{$cellSize} - 2px);
         border: 1px solid rgba(255, 255, 255, 0.15);
 
-        .-cell-canvas,
-        .-target-canvas {
+        .-cell-canvas {
           position: absolute;
           top: 0;
           left: 0;
