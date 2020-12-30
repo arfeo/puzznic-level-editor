@@ -153,6 +153,8 @@ function gridCellClickHandler(event: MouseEvent): void {
 
   switch (this.selectedObject) {
     case LevelObjects.Nothing: {
+      this.level.map[cellY][cellX] = 0;
+
       this.level.blocks = [
         ...this.level.blocks
           .filter((block: Block) => !(block.position[0] === cellY && block.position[1] === cellX))
